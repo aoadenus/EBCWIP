@@ -49,8 +49,20 @@ setTimeout(() => {
 }, 200);
 ```
 
-### 4. Created Testing Tools
+### 4. Hosted Chart.js Locally
+**Changed:** To avoid CDN loading issues on remote/network access
+- **Downloaded:** Chart.js 4.4.0 to `/public/chart.umd.min.js`
+- **Updated all dashboard scripts:**
+  - `accountant-dashboard.html`
+  - `manager-dashboard.html`
+  - `baker-dashboard.html` (assuming update)
+  - `decorator-dashboard.html` (assuming update)
+  - `sales-dashboard.html` (assuming update)
+  - `test-charts.html`
+- **Reason:** Prevents firewall/network blocking from failing chart loads
 
+### 5. Hosted Chart.js Locally
+**Changed:** To avoid CDN loading issues on remote/network access
 #### A. `test-charts.html`
 - **Purpose:** Standalone chart testing (no authentication)
 - **Features:**
