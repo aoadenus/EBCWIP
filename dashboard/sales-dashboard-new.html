@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decorator Dashboard - Emily Bakes Cakes</title>
+    <title>Sales Dashboard - Emily Bakes Cakes</title>
     <link rel="stylesheet" href="css/dashboard-redesigned.css?v=20251122">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="js/ux-enhancements.js"></script>
@@ -29,7 +29,7 @@
             justify-content: flex-end;
         }
 
-        /* Additional styles for Decorator Dashboard layout */
+        /* Additional styles for Sales Dashboard layout */
 
         /* KPIs at top */
         .kpi-row {
@@ -269,8 +269,8 @@
         </div>
         <div class="header-center">
             <div class="header-user">
-                <div class="role-badge" id="staff-role">DECORATOR</div>
-                <div class="DECORATOR-name" id="staff-name">DECORATOR</div>
+                <div class="role-badge" id="staff-role">SALES</div>
+                <div class="SALES-name" id="staff-name">SALES</div>
             </div>
         </div>
         <div class="header-right">
@@ -282,7 +282,7 @@
     <!-- LEFT NAVIGATION -->
     <nav class="nav-sidebar">
         <ul>
-            <li><a href="DECORATOR-dashboard.html" class="nav-link active">Dashboard</a></li>
+            <li><a href="SALES-dashboard.html" class="nav-link active">Dashboard</a></li>
             <li><a href="all-orders.html" class="nav-link">View Orders</a></li>
             <li><a href="all-customers.html" class="nav-link">View Customers</a></li>
             <li><a href="view-products.html" class="nav-link">View Products</a></li>
@@ -316,7 +316,8 @@
             <!-- KPIs STATS CARDS (AT TOP) -->
             <div class="kpi-row">
                 <div class="kpi-compact" style="background: linear-gradient(135deg, #C44569 0%, #9A3350 100%);">
-                    <div class="kpi-value" id="baking-queue-count">0</div><div class="kpi-label">Baking Queue</div>
+                    <div class="kpi-value" id="pending-pickup-count">0</div>
+                    <div class="kpi-label">Today's Pickups</div>
                     <a href="#" class="kpi-link" id="open-todays-pickups-modal" onclick="openTodaysPickupsModal(event)">View Orders →</a>
                 </div>
                 <div class="kpi-compact" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
@@ -352,9 +353,9 @@
                         </div>
                     </div>
                     <div class="chart-card">
-                        <h3 class="chart-title">Cake Flavors To Bake Today</h3>
+                        <h3 class="chart-title">Order Status Distribution</h3>
                         <div class="chart-container">
-                            <canvas id="layersChart"></canvas>
+                            <canvas id="statusChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -449,7 +450,7 @@
         }
 
         function updateHeaderWithUserInfo() {
-            const staffName = localStorage.getItem('staffName') || 'DECORATOR';
+            const staffName = localStorage.getItem('staffName') || 'SALES';
             document.getElementById('staff-name').textContent = staffName;
             // Role badge is already set in HTML
         }
@@ -516,10 +517,10 @@
             if (!checkAuthentication()) return;
             updateHeaderWithUserInfo();
             initializeNav();
-            initializeDecoratorDashboard();
+            initializeSALESDashboard();
         });
 
-        function initializeDecoratorDashboard() {
+        function initializeSALESDashboard() {
             // Update KPIs
             document.getElementById('pending-pickup-count').textContent = getTodaysPickups().length;
             document.getElementById('todays-orders-count').textContent = dashboardData.orders.length;
@@ -755,5 +756,4 @@
     </div>
 </body>
 </html>
-
 
