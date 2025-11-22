@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard - Emily Bakes Cakes</title>
     <link rel="stylesheet" href="css/dashboard-redesigned.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="js/ux-enhancements.js"></script>
     <style>
         /* Professional Header Customization */
@@ -71,7 +71,7 @@
                 <div class="chart-card" style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <h3 style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px;">Revenue Trend (Last 7 Days)</h3>
                     <div style="height: 280px;">
-                        <canvas id="revenueTrendChart"></canvas>
+                        <canvas id="revenueChart"></canvas>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
                 <div class="chart-card" style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <h3 style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px;">Popular Products</h3>
                     <div style="height: 280px;">
-                        <canvas id="popularProductsChart"></canvas>
+                        <canvas id="productsChart"></canvas>
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
                 <div class="chart-card" style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <h3 style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px;">Order Status Distribution</h3>
                     <div style="height: 280px; display: flex; align-items: center; justify-content: center;">
-                        <canvas id="orderStatusChart"></canvas>
+                        <canvas id="statusChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -239,129 +239,37 @@
         }
 
         function initializeTopCharts() {
-            // Revenue Trend Chart (Line Chart)
-            const revenueCtx = document.getElementById('revenueTrendChart');
-            if (revenueCtx) {
-                new Chart(revenueCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                        datasets: [{
-                            label: 'Revenue',
-                            data: [340, 420, 380, 510, 460, 390, 435],
-                            borderColor: '#C44569',
-                            backgroundColor: 'rgba(196, 69, 105, 0.1)',
-                            fill: true,
-                            tension: 0.4,
-                            borderWidth: 3,
-                            pointRadius: 6,
-                            pointBackgroundColor: '#C44569',
-                            pointBorderColor: '#fff',
-                            pointBorderWidth: 2,
-                            pointHoverRadius: 8
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return 'Revenue: $' + context.parsed.y;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                grid: { color: '#f0f0f0' },
-                                ticks: {
-                                    callback: function(value) {
-                                        return '$' + value;
-                                    }
-                                }
-                            },
-                            x: {
-                                grid: { display: false }
-                            }
-                        }
+            setTimeout(() => {
+                if (typeof Chart !== 'undefined') {
+                    // Revenue Chart
+                    const revenueCtx = document.getElementById('revenueChart');
+                    if (revenueCtx) {
+                        new Chart(revenueCtx, {
+                            type: 'line',
+                            data: { labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], datasets: [{ label: 'Revenue', data: [340,420,380,510,460,390,435], borderColor: '#C44569', backgroundColor: 'rgba(196,69,105,0.1)', fill: true, tension: 0.4 }] },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
                     }
-                });
-            }
-
-            // Popular Products Chart (Bar Chart)
-            const productsCtx = document.getElementById('popularProductsChart');
-            if (productsCtx) {
-                const topProducts = getTopProducts().slice(0, 5);
-                new Chart(productsCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: topProducts.map(p => p.name),
-                        datasets: [{
-                            label: 'Orders',
-                            data: topProducts.map(p => p.count),
-                            backgroundColor: '#1ABC9C',
-                            borderRadius: 8,
-                            barThickness: 40
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                display: false
-                            },
-                            x: {
-                                grid: { display: false },
-                                ticks: {
-                                    font: { size: 11 }
-                                }
-                            }
-                        }
+                    // Products Chart
+                    const productsCtx = document.getElementById('productsChart');
+                    if (productsCtx) {
+                        new Chart(productsCtx, {
+                            type: 'bar',
+                            data: { labels: ['Chocolate', 'Vanilla', 'Red Velvet', 'Strawberry', 'Lemon'], datasets: [{ label: 'Orders', data: [12,10,8,7,6], backgroundColor: '#10B981' }] },
+                            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
+                        });
                     }
-                });
-            }
-
-            // Order Status Distribution Chart (Doughnut Chart)
-            const statusCtx = document.getElementById('orderStatusChart');
-            if (statusCtx) {
-                const statusCounts = getStatusCounts();
-                new Chart(statusCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Baking', 'Decorating', 'Ready'],
-                        datasets: [{
-                            data: [statusCounts.baking || 0, statusCounts.decorating || 0, statusCounts.ready || 0],
-                            backgroundColor: ['#F39C12', '#9B59B6', '#1ABC9C'],
-                            borderWidth: 0,
-                            hoverOffset: 10
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        cutout: '70%',
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    font: { size: 12 },
-                                    padding: 15,
-                                    usePointStyle: true
-                                }
-                            }
-                        }
+                    // Status Chart
+                    const statusCtx = document.getElementById('statusChart');
+                    if (statusCtx) {
+                        new Chart(statusCtx, {
+                            type: 'doughnut',
+                            data: { labels: ['Ready', 'Decorating', 'Baking'], datasets: [{ data: [3,1,2], backgroundColor: ['#10B981','#A855F7','#F59E0B'] }] },
+                            options: { responsive: true, maintainAspectRatio: false }
+                        });
                     }
-                });
-            }
+                }
+            }, 200);
         }
     </script>
 </body>
