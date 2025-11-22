@@ -685,38 +685,47 @@
 
                     <!-- Cake Flavors Tab -->
                     <div id="cake-flavors" class="tab-content">
-                        <div class="products-grid">
-                            <div class="product-card">
+                        <div class="manager-controls">
+                            <button class="add-product-btn" onclick="addNewProduct('flavor')">+ Add New Flavor</button>
+                        </div>
+                        <div class="products-grid manager-controls">
+                            <div class="product-card" data-product-type="flavor" data-product-name="Vanilla">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Vanilla</h3>
                                     <p class="product-desc">Classic vanilla flavor, timeless and elegant</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="flavor" data-product-name="Almond">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Almond</h3>
                                     <p class="product-desc">Delicate almond with subtle nutty sweetness</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="flavor" data-product-name="Yellow">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Yellow</h3>
                                     <p class="product-desc">Traditional yellow cake, buttery and moist</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="flavor" data-product-name="Devil's Food Chocolate">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Devil's Food Chocolate</h3>
                                     <p class="product-desc">Deep, rich dark chocolate with intense cocoa</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="flavor" data-product-name="Chocolate">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Chocolate</h3>
                                     <p class="product-desc">Classic chocolate, rich and indulgent</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="flavor" data-product-name="Strawberry">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Strawberry</h3>
                                     <p class="product-desc">Light strawberry flavor with fresh fruit</p>
@@ -727,92 +736,110 @@
 
                     <!-- Fillings Tab -->
                     <div id="fillings" class="tab-content">
-                        <div class="products-grid">
-                            <div class="product-card">
+                        <div class="manager-controls">
+                            <button class="add-product-btn" onclick="addNewProduct('filling')">+ Add New Filling</button>
+                        </div>
+                        <div class="products-grid manager-controls">
+                            <div class="product-card" data-product-type="filling" data-product-name="White Buttercream">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">White Buttercream</h3>
                                     <p class="product-desc">Smooth and creamy classic buttercream</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Chocolate Buttercream">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Chocolate Buttercream</h3>
                                     <p class="product-desc">Rich chocolate with deep cocoa flavor</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Almond Buttercream">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Almond Buttercream</h3>
                                     <p class="product-desc">Delicate almond-infused sweetness</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Cream Cheese">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Cream Cheese</h3>
                                     <p class="product-desc">Tangy and creamy balance</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Lemon Curd">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Lemon Curd</h3>
                                     <p class="product-desc">Bright and zesty sweet-tart filling</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Strawberry">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Strawberry</h3>
                                     <p class="product-desc">Fresh strawberry with real fruit</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Rum/Strawberry">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Rum/Strawberry</h3>
                                     <p class="product-desc">Strawberry with a hint of rum</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Raspberry">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Raspberry</h3>
                                     <p class="product-desc">Tart and sweet berry filling</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Pecan Praline">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Pecan Praline</h3>
                                     <p class="product-desc">Buttery praline with toasted pecans</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Chocolate Mousse">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Chocolate Mousse</h3>
                                     <p class="product-desc">Light and airy chocolate mousse</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Lemon Mousse">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Lemon Mousse</h3>
                                     <p class="product-desc">Tangy lemon mousse, light and fluffy</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Strawberry Mousse">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Strawberry Mousse</h3>
                                     <p class="product-desc">Fruity strawberry mousse filling</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Raspberry Mousse">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Raspberry Mousse</h3>
                                     <p class="product-desc">Tart raspberry mousse</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="White Chocolate Mousse">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">White Chocolate Mousse</h3>
                                     <p class="product-desc">Creamy white chocolate mousse</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="filling" data-product-name="Mango Mousse">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Mango Mousse</h3>
                                     <p class="product-desc">Tropical mango mousse filling</p>
@@ -879,38 +906,47 @@
 
                     <!-- Icing Flavors Tab -->
                     <div id="icing-flavors" class="tab-content">
-                        <div class="products-grid">
-                            <div class="product-card">
+                        <div class="manager-controls">
+                            <button class="add-product-btn" onclick="addNewProduct('icing')">+ Add New Icing Flavor</button>
+                        </div>
+                        <div class="products-grid manager-controls">
+                            <div class="product-card" data-product-type="icing" data-product-name="White Buttercream">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">White Buttercream</h3>
                                     <p class="product-desc">Classic smooth buttercream icing</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="icing" data-product-name="Chocolate Buttercream">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Chocolate Buttercream</h3>
                                     <p class="product-desc">Rich chocolate buttercream</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="icing" data-product-name="Almond Buttercream">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Almond Buttercream</h3>
                                     <p class="product-desc">Delicate almond-flavored icing</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="icing" data-product-name="White Chocolate Buttercream">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">White Chocolate Buttercream</h3>
                                     <p class="product-desc">Creamy white chocolate icing</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="icing" data-product-name="Cream Cheese">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Cream Cheese</h3>
                                     <p class="product-desc">Tangy and smooth cream cheese icing</p>
                                 </div>
                             </div>
-                            <div class="product-card">
+                            <div class="product-card" data-product-type="icing" data-product-name="Chocolate Ganache">
+                                <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
                                 <div class="product-info" style="padding: 30px 20px;">
                                     <h3 class="product-name">Chocolate Ganache</h3>
                                     <p class="product-desc">Glossy, rich chocolate ganache</p>
@@ -1029,23 +1065,17 @@
         let currentEditCard = null;
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadUserInfo();
             checkManagerRole();
         });
 
-        function loadUserInfo() {
-            const staffRole = localStorage.getItem('staffRole') || 'manager';
-            const staffName = localStorage.getItem('staffName') || 'Manager';
-            document.getElementById('staff-role').textContent = staffRole.toUpperCase();
-            document.getElementById('staff-name').textContent = staffName;
-        }
-
         function checkManagerRole() {
             const role = localStorage.getItem('staffRole') || '';
+            console.log('Current staff role:', role);
             if (role === 'manager') {
                 document.querySelectorAll('.manager-controls').forEach(el => {
                     el.classList.add('active');
                 });
+                console.log('Manager edit controls activated');
             }
         }
 
@@ -1066,10 +1096,21 @@
 
         function addNewProduct(type) {
             currentEditCard = null;
+            currentProductType = type;
             document.getElementById('edit-name').value = '';
             document.getElementById('edit-description').value = '';
             document.getElementById('edit-image').value = '';
-            document.getElementById('modal-title').textContent = 'Add New ' + (type === 'cake' ? 'Cake' : 'Product');
+            
+            // Set appropriate modal title based on product type
+            const typeNames = {
+                'cake': 'Cake',
+                'flavor': 'Cake Flavor',
+                'filling': 'Filling',
+                'icing': 'Icing Flavor',
+                'decoration': 'Decoration'
+            };
+            const typeName = typeNames[type] || 'Product';
+            document.getElementById('modal-title').textContent = 'Add New ' + typeName;
 
             document.getElementById('editModal').classList.add('active');
         }
@@ -1094,25 +1135,42 @@
                 }
                 currentEditCard.setAttribute('data-product-name', name);
             } else {
-                // Add new product
-                const grid = document.querySelector('#standard-cakes .products-grid');
+                // Add new product - determine which tab is active
+                const activeTab = document.querySelector('.tab-content.active');
+                const grid = activeTab.querySelector('.products-grid');
+                const productType = currentProductType || 'cake';
+                
                 const newCard = document.createElement('div');
                 newCard.className = 'product-card';
-                newCard.setAttribute('data-product-type', 'cake');
+                newCard.setAttribute('data-product-type', productType);
                 newCard.setAttribute('data-product-name', name);
-                newCard.innerHTML = `
-                    <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
-                    <div class="product-image" style="background-image: url('${imageUrl || '../public/ebc-cake-images/Birthday.png'}');"></div>
-                    <div class="product-info">
-                        <h3 class="product-name">${name}</h3>
-                        <p class="product-desc">${desc}</p>
-                    </div>
-                `;
+                
+                // Check if product type needs an image (cakes do, others don't)
+                if (productType === 'cake' && imageUrl) {
+                    newCard.innerHTML = `
+                        <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
+                        <div class="product-image" style="background-image: url('${imageUrl}');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">${name}</h3>
+                            <p class="product-desc">${desc}</p>
+                        </div>
+                    `;
+                } else {
+                    newCard.innerHTML = `
+                        <button class="manager-edit-btn" onclick="editProduct(this)">✏️ Edit</button>
+                        <div class="product-info" style="padding: 30px 20px;">
+                            <h3 class="product-name">${name}</h3>
+                            <p class="product-desc">${desc}</p>
+                        </div>
+                    `;
+                }
                 grid.appendChild(newCard);
             }
 
             closeEditModal();
         }
+
+        let currentProductType = 'cake';
 
         function closeEditModal() {
             document.getElementById('editModal').classList.remove('active');

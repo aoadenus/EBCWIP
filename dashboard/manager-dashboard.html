@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard - Emily Bakes Cakes</title>
     <link rel="stylesheet" href="css/dashboard-redesigned.css">
-    <script src="/public/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         /* Ultra-Compact Dashboard Layout */
 
@@ -768,6 +768,11 @@
                 });
             }
         }
+
+        // Set manager role on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('staffRole', 'manager');
+        });
 
         function backToSite() {
             window.location.href = '../index.html';
