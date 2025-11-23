@@ -463,9 +463,11 @@
         document.getElementById('completed-orders-today').textContent = unifiedMockData.metrics.today.completedToday;
         document.getElementById('avg-completion').textContent = `Avg: ${unifiedMockData.metrics.today.avgCompletionTime}`;
         
-        // Cancellations (matches accountant refunds)
-        const cancellationsWeek = 2; // Mock: 2 cancelled orders this week
-        const cancellationRevenue = 195.00; // Mock: matches refunded amount in accountant dashboard
+        // Calculate cancellations from real data
+        const today = new Date().toISOString().split('T')[0];
+        const cancelledOrders = unifiedMockData.orders.filter(o => o.isCancelled === 'Y');
+        const cancellationsWeek = cancelledOrders.length;
+        const cancellationRevenue = cancelledOrders.reduce((sum, o) => sum + o.depositAmount, 0);
         
         document.getElementById('cancellations-week').textContent = cancellationsWeek;
         document.getElementById('cancel-reason').textContent = cancellationsWeek === 0 ? 'No cancellations' : `Lost revenue: $${cancellationRevenue.toFixed(2)}`;
@@ -528,7 +530,8 @@
             return;
         }
         
-        const pickups = unifiedMockData.getUpcomingPickups("2025-11-25");
+        const today = new Date().toISOString().split('T')[0];
+        const pickups = unifiedMockData.getUpcomingPickups(today);
         
         if (pickups.length === 0) {
             tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No pickups scheduled for today</td></tr>';
@@ -552,8 +555,13 @@
             return;
         }
         
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowDate = tomorrow.toISOString().split('T')[0];
+        
         const tomorrowsOrders = unifiedMockData.orders
-            .filter(o => o.pickupDate === "2025-11-26")
+            .filter(o => o.pickupDate === tomorrowDate)
             .sort((a, b) => a.pickupTime.localeCompare(b.pickupTime));
         
         if (tomorrowsOrders.length === 0) {

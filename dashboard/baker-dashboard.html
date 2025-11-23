@@ -357,11 +357,32 @@
         function initializeBakerDashboard() {
             localStorage.setItem('staffRole', 'baker');
             
-            // Calculate KPIs
-            const ordersToBake = unifiedMockData.orders.filter(o => o.statusId === 1 && o.isCancelled !== 'Y').length;
-            const inBaking = unifiedMockData.orders.filter(o => o.statusId === 2 && o.isCancelled !== 'Y').length;
-            const readyDecoration = unifiedMockData.orders.filter(o => o.statusId === 3 && o.isCancelled !== 'Y').length;
-            const cancelledToday = unifiedMockData.orders.filter(o => o.isCancelled === 'Y').length;
+            // Get today's date in YYYY-MM-DD format
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Calculate KPIs - only for orders with today's pickup date
+            const ordersToBake = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 1 && 
+                o.isCancelled !== 'Y'
+            ).length;
+            
+            const inBaking = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 2 && 
+                o.isCancelled !== 'Y'
+            ).length;
+            
+            const readyDecoration = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 3 && 
+                o.isCancelled !== 'Y'
+            ).length;
+            
+            const cancelledToday = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.isCancelled === 'Y'
+            ).length;
             
             document.getElementById('orders-to-bake').textContent = ordersToBake;
             document.getElementById('in-baking').textContent = inBaking;
@@ -380,8 +401,13 @@
         }
 
         function populateBakingQueue() {
+            const today = new Date().toISOString().split('T')[0];
             const tbody = document.getElementById('baking-queue-tbody');
-            const queue = unifiedMockData.orders.filter(o => o.statusId === 1 || o.statusId === 2).slice(0, 8);
+            const queue = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                (o.statusId === 1 || o.statusId === 2) && 
+                o.isCancelled !== 'Y'
+            ).slice(0, 8);
             
             if (queue.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No orders in baking queue</td></tr>';
@@ -400,8 +426,13 @@
         }
 
         function populateMovingToDecorating() {
+            const today = new Date().toISOString().split('T')[0];
             const tbody = document.getElementById('decorating-tbody');
-            const ready = unifiedMockData.orders.filter(o => o.statusId === 3).slice(0, 8);
+            const ready = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 3 && 
+                o.isCancelled !== 'Y'
+            ).slice(0, 8);
             
             if (ready.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No cakes ready for decorating</td></tr>';

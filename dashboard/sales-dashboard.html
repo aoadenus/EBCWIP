@@ -449,7 +449,8 @@
             console.log('Initializing Sales Dashboard...');
             localStorage.setItem('staffRole', 'sales');
             
-            const today = "2025-11-25";
+            // Get today's date in YYYY-MM-DD format
+            const today = new Date().toISOString().split('T')[0];
             
             // Calculate KPIs
             const ordersCreatedToday = unifiedMockData.orders.filter(o => o.orderDate === today).length;
@@ -517,7 +518,8 @@
             const tbody = document.getElementById('todays-pickups-tbody');
             if (!tbody) return;
             
-            const pickups = unifiedMockData.getUpcomingPickups("2025-11-25");
+            const today = new Date().toISOString().split('T')[0];
+            const pickups = unifiedMockData.getUpcomingPickups(today);
             
             tbody.innerHTML = pickups.map(pickup => `
                 <tr>
@@ -533,8 +535,13 @@
             const container = document.getElementById('tomorrows-schedule');
             if (!container) return;
             
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowDate = tomorrow.toISOString().split('T')[0];
+            
             const tomorrowsOrders = unifiedMockData.orders
-                .filter(o => o.pickupDate === "2025-11-26")
+                .filter(o => o.pickupDate === tomorrowDate)
                 .sort((a, b) => a.pickupTime.localeCompare(b.pickupTime));
             
             container.innerHTML = tomorrowsOrders.map(order => `

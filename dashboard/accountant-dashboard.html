@@ -465,7 +465,8 @@
             console.log('Initializing Accountant Dashboard...');
             localStorage.setItem('staffRole', 'accountant');
             
-            const today = "2025-11-25";
+            // Get today's date in YYYY-MM-DD format
+            const today = new Date().toISOString().split('T')[0];
             
             // Calculate financial KPIs
             const todaysOrders = unifiedMockData.orders.filter(o => o.orderDate === today);
@@ -473,12 +474,14 @@
             const depositRevenue = todaysOrders.reduce((sum, o) => sum + o.depositAmount, 0);
             const avgOrderValue = todaysOrders.length > 0 ? todaysRevenue / todaysOrders.length : 0;
             
-            // Use realistic mock numbers for completed orders
-            const completedOrders = 3; // Mock: 3 orders completed today
-            const completedRevenue = 367.50; // Mock: $367.50 posted
+            // Calculate completed orders and refunds from real data
+            const completedToday = unifiedMockData.orders.filter(o => o.pickupDate === today && o.statusId === 5);
+            const completedOrders = completedToday.length;
+            const completedRevenue = completedToday.reduce((sum, o) => sum + (o.totalPrice - o.depositAmount), 0);
             
-            const refundsWeek = 2; // Mock: 2 refunds this week
-            const refundedAmount = 195.00; // Mock: $195.00 refunded
+            const cancelledOrders = unifiedMockData.orders.filter(o => o.isCancelled === 'Y');
+            const refundsWeek = cancelledOrders.length;
+            const refundedAmount = cancelledOrders.reduce((sum, o) => sum + o.depositAmount, 0);
             
             // Update KPIs
             document.getElementById('todays-revenue').textContent = `$${todaysRevenue.toFixed(2)}`;

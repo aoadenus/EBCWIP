@@ -351,11 +351,29 @@
         function initializeDecoratorDashboard() {
             localStorage.setItem('staffRole', 'decorator');
             
-            // Calculate KPIs
-            const ordersToDecorate = unifiedMockData.orders.filter(o => o.statusId === 3 && o.isCancelled !== 'Y').length;
-            const inDecorating = unifiedMockData.orders.filter(o => o.statusId === 3 && o.isCancelled !== 'Y').length;
-            const readyApproval = unifiedMockData.orders.filter(o => o.statusId === 4 && o.isCancelled !== 'Y').length;
-            const cancelledToday = unifiedMockData.orders.filter(o => o.isCancelled === 'Y').length;
+            // Get today's date in YYYY-MM-DD format
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Calculate KPIs - only for orders with today's pickup date
+            const ordersToDecorate = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 3 && 
+                o.isCancelled !== 'Y'
+            ).length;
+            const inDecorating = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 3 && 
+                o.isCancelled !== 'Y'
+            ).length;
+            const readyApproval = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 4 && 
+                o.isCancelled !== 'Y'
+            ).length;
+            const cancelledToday = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.isCancelled === 'Y'
+            ).length;
             
             document.getElementById('orders-to-decorate').textContent = ordersToDecorate;
             document.getElementById('in-decorating').textContent = inDecorating;
@@ -374,8 +392,13 @@
         }
 
         function populateDecoratingQueue() {
+            const today = new Date().toISOString().split('T')[0];
             const tbody = document.getElementById('decorating-queue-tbody');
-            const queue = unifiedMockData.orders.filter(o => o.statusId === 3).slice(0, 8);
+            const queue = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 3 && 
+                o.isCancelled !== 'Y'
+            ).slice(0, 8);
             
             if (queue.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No orders in decorating queue</td></tr>';
@@ -393,8 +416,13 @@
         }
 
         function populateReadyForApproval() {
+            const today = new Date().toISOString().split('T')[0];
             const tbody = document.getElementById('approval-tbody');
-            const ready = unifiedMockData.orders.filter(o => o.statusId === 4).slice(0, 8);
+            const ready = unifiedMockData.orders.filter(o => 
+                o.pickupDate === today && 
+                o.statusId === 4 && 
+                o.isCancelled !== 'Y'
+            ).slice(0, 8);
             
             if (ready.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No cakes ready for approval</td></tr>';
