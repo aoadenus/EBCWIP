@@ -231,6 +231,7 @@
         <ul>
             <li><a href="decorator-dashboard.html" class="nav-link active">Dashboard</a></li>
             <li><a href="all-orders.html" class="nav-link">View Orders</a></li>
+            <li><a href="all-customers.html" class="nav-link">View Customers</a></li>
             <li><a href="view-products.html" class="nav-link">View Products</a></li>
             <li><a href="reports.html" class="nav-link">Reports</a></li>
         </ul>
@@ -264,7 +265,7 @@
 
             <!-- QUICK ACTIONS -->
             <div class="quick-actions-bar">
-                <a href="../order-form-wizard.html" class="action-btn primary">Create New Order</a>
+                <a href="../order-form-wizard-wizard.html" class="action-btn primary">Create New Order</a>
                 <a href="all-orders.html" class="action-btn">View Orders</a>
                 <a href="view-products.html" class="action-btn">View Products</a>
                 <a href="reports.html" class="action-btn">Reports</a>
@@ -348,21 +349,47 @@
         });
 
         function initializeDecoratorDashboard() {
+            // Verify data is loaded
+            if (typeof unifiedMockData === 'undefined') {
+                console.error('❌ ERROR: unified-mock-data.js not loaded!');
+                return;
+            }
+            console.log('✅ Mock data loaded:', unifiedMockData.orders.length, 'orders,', unifiedMockData.customers.length, 'customers');
+            
             localStorage.setItem('staffRole', 'decorator');
             
-            // Calculate KPIs
-            const ordersToDecorate = unifiedMockData.orders.filter(o => o.statusId === 3).length;
-            const inDecorating = 2; // Mock
-            const readyApproval = unifiedMockData.orders.filter(o => o.statusId === 4).length;
-            const cancelledToday = 0; // Mock
+            // ═══════════════════════════════════════════════════════
+            // DECORATOR DASHBOARD - KPIs and Tables
+            // ═══════════════════════════════════════════════════════
+            
+            const TODAY = '2025-11-23';
+            
+            // Calculate KPIs - only for orders PLACED today (orderDate)
+            const todaysOrders = unifiedMockData.orders.filter(o => 
+                o.orderDate === TODAY && 
+                o.isCancelled === 'N'
+            );
+            
+            // KPI 1: Awaiting Decoration (Status 2, orderDate today)
+            const ordersToDecorate = todaysOrders.filter(o => o.statusId === 2).length;
+            
+            // KPI 2: In Decoration (Status 3, orderDate today)
+            const inDecorating = todaysOrders.filter(o => o.statusId === 3).length;
+            
+            // KPI 3: Completed Today (Status >= 4, orderDate today)
+            const completedToday = todaysOrders.filter(o => o.statusId >= 4).length;
+            
+            // KPI 4: Total Today
+            const totalToday = todaysOrders.length;
             
             document.getElementById('orders-to-decorate').textContent = ordersToDecorate;
             document.getElementById('in-decorating').textContent = inDecorating;
-            document.getElementById('ready-approval').textContent = readyApproval;
-            document.getElementById('cancelled-today').textContent = cancelledToday;
+            document.getElementById('ready-approval').textContent = completedToday;
+            document.getElementById('cancelled-today').textContent = totalToday;
             
             populateDecoratingQueue();
             populateReadyForApproval();
+            populateCancelledOrders();
             
             setTimeout(() => {
                 if (typeof Chart !== 'undefined') {
@@ -372,8 +399,13 @@
         }
 
         function populateDecoratingQueue() {
+            const TODAY = '2025-11-23'; // Demo date
             const tbody = document.getElementById('decorating-queue-tbody');
-            const queue = unifiedMockData.orders.filter(o => o.statusId === 3).slice(0, 8);
+            const queue = unifiedMockData.orders.filter(o => 
+                o.pickupDate === TODAY && 
+                o.statusId === 3 && 
+                o.isCancelled === 'N'
+            ).slice(0, 8);
             
             if (queue.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No orders in decorating queue</td></tr>';
@@ -391,8 +423,13 @@
         }
 
         function populateReadyForApproval() {
+            const TODAY = '2025-11-23'; // Demo date
             const tbody = document.getElementById('approval-tbody');
-            const ready = unifiedMockData.orders.filter(o => o.statusId === 4).slice(0, 8);
+            const ready = unifiedMockData.orders.filter(o => 
+                o.pickupDate === TODAY && 
+                o.statusId === 4 && 
+                o.isCancelled === 'N'
+            ).slice(0, 8);
             
             if (ready.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No cakes ready for approval</td></tr>';
@@ -438,6 +475,36 @@
                     }
                 });
             }
+        }
+
+        function populateCancelledOrders() {
+            const TODAY = '2025-11-23'; // Demo date
+            const cancelledOrders = unifiedMockData.orders.filter(o => o.isCancelled === 'Y' && (o.pickupDate === TODAY || o.orderDate === TODAY));
+            const tbody = document.getElementById('cancelled-tbody');
+            
+            if (!tbody) return; // Exit if table doesn't exist
+            
+            if (cancelledOrders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">No cancelled orders</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = cancelledOrders.map(order => {
+                const customer = unifiedMockData.customers.find(c => c.id === order.customerId);
+                const product = unifiedMockData.products.find(p => p.id === order.productId);
+                const status = unifiedMockData.orderStatuses.find(s => s.id === order.statusId);
+                
+                return `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${customer ? customer.firstName + ' ' + customer.lastName : 'Unknown'}</td>
+                        <td>${product ? product.name : 'Unknown'}</td>
+                        <td>${order.pickupDate}</td>
+                        <td>${status ? status.name : 'Unknown'}</td>
+                        <td>${order.notes || 'No notes'}</td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function backToSite() {

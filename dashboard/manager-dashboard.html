@@ -446,29 +446,62 @@
     });
 
     function initializeManagerDashboard() {
+        // Verify data is loaded
+        if (typeof unifiedMockData === 'undefined') {
+            console.error('❌ ERROR: unified-mock-data.js not loaded!');
+            return;
+        }
+        console.log('✅ Mock data loaded:', unifiedMockData.orders.length, 'orders,', unifiedMockData.customers.length, 'customers');
         console.log('Initializing Manager Dashboard...');
-        console.log('Unified Mock Data:', unifiedMockData);
         
         // Set manager role
         localStorage.setItem('staffRole', 'manager');
         
-        // Update KPIs
+        // ═══════════════════════════════════════════════════════
+        // MANAGER DASHBOARD - KPIs and Tables
+        // ═══════════════════════════════════════════════════════
+        
+        const TODAY = '2025-11-23';
+        const WEEK_START = new Date('2025-11-21');
+        const WEEK_END = new Date('2025-11-27');
+        
+        // KPI 1: Total Orders Today (orderDate)
+        const todaysOrders = unifiedMockData.orders.filter(o =>
+            o.orderDate === TODAY && o.isCancelled === 'N'
+        );
+        const totalOrdersToday = todaysOrders.length;
+        
+        // KPI 2: Orders In Production (Status 2 or 3, orderDate today)
+        const ordersInProduction = todaysOrders.filter(o =>
+            o.statusId === 2 || o.statusId === 3
+        ).length;
+        
+        // KPI 3: Completed Today (Status 4 or 5, orderDate today)
+        const completedToday = todaysOrders.filter(o =>
+            o.statusId === 4 || o.statusId === 5
+        ).length;
+        
+        // KPI 4: Cancellations This Week
+        const cancellations = unifiedMockData.orders.filter(o => {
+            const orderDate = new Date(o.orderDate);
+            return o.isCancelled === 'Y' && orderDate >= WEEK_START && orderDate <= WEEK_END;
+        });
+        const cancellationsCount = cancellations.length;
+        const cancellationRevenue = cancellations.reduce((sum, o) => sum + (o.depositAmount || 0), 0);
+        
+        // Update KPI displays
         console.log('Updating KPIs...');
-        document.getElementById('total-orders-today').textContent = unifiedMockData.metrics.today.totalOrders;
+        document.getElementById('total-orders-today').textContent = totalOrdersToday;
         document.getElementById('last-order-time').textContent = `Last order: ${unifiedMockData.metrics.today.lastOrderTime}`;
         
-        document.getElementById('orders-in-production').textContent = unifiedMockData.metrics.today.ordersInProduction;
+        document.getElementById('orders-in-production').textContent = ordersInProduction;
         document.getElementById('longest-production').textContent = `Longest: ${unifiedMockData.metrics.today.longestInProduction}`;
         
-        document.getElementById('completed-orders-today').textContent = unifiedMockData.metrics.today.completedToday;
+        document.getElementById('completed-orders-today').textContent = completedToday;
         document.getElementById('avg-completion').textContent = `Avg: ${unifiedMockData.metrics.today.avgCompletionTime}`;
         
-        // Cancellations (matches accountant refunds)
-        const cancellationsWeek = 2; // Mock: 2 cancelled orders this week
-        const cancellationRevenue = 195.00; // Mock: matches refunded amount in accountant dashboard
-        
-        document.getElementById('cancellations-week').textContent = cancellationsWeek;
-        document.getElementById('cancel-reason').textContent = cancellationsWeek === 0 ? 'No cancellations' : `Lost revenue: $${cancellationRevenue.toFixed(2)}`;
+        document.getElementById('cancellations-week').textContent = cancellationsCount;
+        document.getElementById('cancel-reason').textContent = cancellationsCount === 0 ? 'No cancellations' : `Lost revenue: $${cancellationRevenue.toFixed(2)}`;
         
         // Revenue comparison
         const percentChange = unifiedMockData.metrics.weekly.percentChange;
@@ -509,16 +542,27 @@
         
         tbody.innerHTML = recentOrders.map(order => {
             const fullOrder = unifiedMockData.orders.find(o => o.id === order.id);
-            const statusClass = order.status.toLowerCase().replace(/ /g, '-');
+            const statusClass = getStatusClass(order.statusId);
             return `
                 <tr>
                     <td><strong>#${order.id}</strong></td>
                     <td>${order.customer}</td>
-                    <td><span class="status-badge status-${statusClass}">${order.status}</span></td>
+                    <td><span class="status-badge ${statusClass}">${order.status}</span></td>
                     <td><strong>$${fullOrder.totalPrice.toFixed(2)}</strong></td>
                 </tr>
             `;
         }).join('');
+    }
+    
+    function getStatusClass(statusId) {
+        const classes = {
+            1: 'status-pending',
+            2: 'status-baking',
+            3: 'status-decorating',
+            4: 'status-ready',
+            5: 'status-completed'
+        };
+        return classes[statusId] || 'status-pending';
     }
 
     function populateTodaysPickups() {
@@ -528,7 +572,8 @@
             return;
         }
         
-        const pickups = unifiedMockData.getUpcomingPickups("2025-11-25");
+        const today = '2025-11-23'; // Demo date
+        const pickups = unifiedMockData.getUpcomingPickups(today);
         
         if (pickups.length === 0) {
             tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">No pickups scheduled for today</td></tr>';
@@ -552,8 +597,10 @@
             return;
         }
         
+        const tomorrowDate = '2025-11-24'; // Demo date (tomorrow)
+        
         const tomorrowsOrders = unifiedMockData.orders
-            .filter(o => o.pickupDate === "2025-11-26")
+            .filter(o => o.pickupDate === tomorrowDate)
             .sort((a, b) => a.pickupTime.localeCompare(b.pickupTime));
         
         if (tomorrowsOrders.length === 0) {

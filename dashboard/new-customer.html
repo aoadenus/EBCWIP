@@ -8,18 +8,20 @@
     <script src="js/ux-enhancements.js"></script>
     <style>
         .form-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
             background: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
         }
 
         .form-section {
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 45px;
+            padding: 30px;
+            background: linear-gradient(to right, #FAFAFA, #FFFFFF);
+            border-radius: 10px;
+            border: 1px solid #E5E7EB;
         }
 
         .form-section:last-child {
@@ -28,18 +30,20 @@
 
         .section-title {
             color: #C44569;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #C44569;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
             margin-bottom: 20px;
         }
 
@@ -50,20 +54,22 @@
 
         .form-group label {
             font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
+            color: #1F2937;
+            margin-bottom: 10px;
             font-size: 14px;
+            letter-spacing: 0.3px;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 14px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 15px;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: white;
         }
 
         .form-group input:focus,
@@ -71,69 +77,82 @@
         .form-group textarea:focus {
             outline: none;
             border-color: #C44569;
-            box-shadow: 0 0 0 3px rgba(196, 69, 105, 0.1);
+            box-shadow: 0 0 0 4px rgba(196, 69, 105, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .form-group input:hover,
+        .form-group select:hover,
+        .form-group textarea:hover {
+            border-color: #C44569;
         }
 
         .form-group textarea {
             grid-column: 1 / -1;
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
 
         .required-indicator {
             color: #EF4444;
             margin-left: 4px;
+            font-weight: 700;
         }
 
         .form-actions {
             display: flex;
-            gap: 12px;
+            gap: 15px;
             justify-content: center;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid #f0f0f0;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 3px solid #F3F4F6;
         }
 
         .btn-submit {
-            background: #C44569;
+            background: linear-gradient(135deg, #C44569, #A33854);
             color: white;
-            padding: 12px 32px;
+            padding: 16px 48px;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
         }
 
         .btn-submit:hover {
-            background: #a83a54;
+            background: linear-gradient(135deg, #A33854, #8B2E46);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196, 69, 105, 0.4);
         }
 
         .btn-reset {
-            background: #f0f0f0;
-            color: #333;
-            padding: 12px 32px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            background: #F3F4F6;
+            color: #1F2937;
+            padding: 16px 48px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 17px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn-reset:hover {
-            background: #e0e0e0;
+            background: #E5E7EB;
+            border-color: #D1D5DB;
+            transform: translateY(-2px);
         }
 
         .btn-cancel {
-            background: transparent;
+            background: white;
             color: #C44569;
-            padding: 12px 32px;
-            border: 2px solid #C44569;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 16px 48px;
+            border: 3px solid #C44569;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -141,40 +160,93 @@
         .btn-cancel:hover {
             background: #C44569;
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
         }
 
         .help-text {
-            font-size: 12px;
-            color: #666;
-            margin-top: 4px;
+            font-size: 13px;
+            color: #6B7280;
+            margin-top: 6px;
+            font-style: italic;
         }
 
         .checkbox-group {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 8px;
+            gap: 10px;
+            margin-top: 0;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border: 2px solid #F59E0B;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkbox-group:hover {
+            background: linear-gradient(135deg, #FDE68A, #FCD34D);
+            border-color: #D97706;
+            transform: translateX(4px);
         }
 
         .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             cursor: pointer;
+            accent-color: #C44569;
         }
 
         .checkbox-group label {
             margin: 0;
             cursor: pointer;
-            font-weight: normal;
+            font-weight: 600;
+            color: #92400E;
+            font-size: 15px;
+        }
+
+        .preferred-badge {
+            background: linear-gradient(135deg, #FCD34D, #F59E0B);
+            color: #78350F;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .form-group.full-width {
+                grid-column: 1 / -1;
+            }
+
+            .form-container {
+                padding: 30px;
+            }
         }
 
         @media (max-width: 768px) {
             .form-container {
-                padding: 20px;
+                padding: 25px 20px;
+                border-radius: 8px;
             }
 
             .form-grid {
                 grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 18px;
             }
 
             .form-actions {
@@ -185,6 +257,27 @@
             .btn-reset,
             .btn-cancel {
                 width: 100%;
+                padding: 14px 32px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 20px 16px;
+            }
+            
+            .section-title {
+                font-size: 16px;
+                gap: 8px;
+            }
+
+            .form-section {
+                padding: 16px;
+                margin-bottom: 30px;
             }
         }
 
@@ -204,6 +297,80 @@
             padding: 16px;
             border-radius: 6px;
             margin-bottom: 20px;
+        }
+
+        .duplicate-warning {
+            background: #FEF3C7;
+            border: 1px solid #F59E0B;
+            color: #92400E;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .duplicate-warning a {
+            color: #C44569;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .toast {
+            position: fixed;
+            top: 90px;
+            right: 24px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            min-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .toast.success {
+            border-left: 4px solid #10B981;
+        }
+
+        .toast.error {
+            border-left: 4px solid #EF4444;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .page-header {
+            margin-bottom: 35px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: #1F2937;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: #6B7280;
         }
     </style>
 </head>
@@ -237,16 +404,38 @@
         <div class="content">
             <!-- PAGE HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Add New Customer</h1>
-                <p class="page-subtitle">Create a new customer profile in the system</p>
+                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px;">
+                    <button onclick="window.history.back()" style="
+                        background: white;
+                        color: #C44569;
+                        border: 2px solid #C44569;
+                        padding: 10px 20px;
+                        border-radius: 6px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        transition: all 0.2s;
+                        font-size: 14px;
+                    " onmouseover="this.style.background='#C44569'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='#C44569';">
+                        ← Back
+                    </button>
+                    <div>
+                        <h1 class="page-title" style="margin-bottom: 4px;">Add New Customer</h1>
+                        <p class="page-subtitle" style="margin: 0;">Create a new customer profile in the system</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- SUCCESS/ERROR MESSAGES -->
-            <div class="success-message" id="successMessage">
-                ✅ Customer created successfully!
-            </div>
-            <div class="error-message" id="errorMessage">
-                ❌ Error creating customer. Please check the form and try again.
+            <!-- TOAST NOTIFICATION -->
+            <div id="toast" class="toast"></div>
+
+            <!-- PREFERRED CUSTOMER TOGGLE -->
+            <div class="checkbox-group" style="margin-bottom: 30px;">
+                <input type="checkbox" id="preferredCustomer" name="preferredCustomer">
+                <label for="preferredCustomer">⭐ Mark as Preferred Customer</label>
+                <span class="preferred-badge">VIP</span>
             </div>
 
             <!-- FORM CONTAINER -->
@@ -317,22 +506,62 @@
                                 <label for="state">State / Province <span class="required-indicator">*</span></label>
                                 <select id="state" name="state" required>
                                     <option value="">-- Select State --</option>
-                                    <option value="TX">Texas</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
                                     <option value="CA">California</option>
-                                    <option value="NY">New York</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
                                     <option value="FL">Florida</option>
-                                    <option value="IL">Illinois</option>
-                                    <option value="PA">Pennsylvania</option>
-                                    <option value="OH">Ohio</option>
                                     <option value="GA">Georgia</option>
-                                    <option value="NC">North Carolina</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
                                     <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX" selected>Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="zipCode">Zip Code <span class="required-indicator">*</span></label>
-                                <input type="text" id="zipCode" name="zipCode" required maxlength="10" placeholder="00000">
+                                <input type="text" id="zipCode" name="zipCode" required maxlength="10" placeholder="12345 or A1A 1A1">
                             </div>
 
                             <div class="form-group">
@@ -349,7 +578,7 @@
 
                     <!-- CONTACT INFORMATION SECTION -->
                     <div class="form-section">
-                        <div class="section-title">📞 Contact Information</div>
+                        <div class="section-title">Contact Information</div>
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="mobilePhone">Mobile Phone <span class="required-indicator">*</span></label>
@@ -372,26 +601,19 @@
                             <div class="form-group">
                                 <label for="email">Email Address <span class="required-indicator">*</span></label>
                                 <input type="email" id="email" name="email" required maxlength="40">
+                                <div id="duplicateWarning" class="duplicate-warning" style="display: none;"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- ADDITIONAL INFORMATION SECTION -->
                     <div class="form-section">
-                        <div class="section-title">📝 Additional Information</div>
+                        <div class="section-title">Additional Information</div>
                         <div class="form-grid">
-                            <div class="form-group">
+                            <div class="form-group full-width">
                                 <label for="comments">Comments About Customer</label>
                                 <textarea id="comments" name="comments" maxlength="1000" placeholder="Enter any additional notes about this customer..."></textarea>
-                                <p class="help-text">Maximum 1000 characters</p>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="preferredCustomer" name="preferredCustomer">
-                                    <label for="preferredCustomer">Mark as Preferred Customer (Eligible for discounts)</label>
-                                </div>
-                                <p class="help-text">Preferred customers receive special discounts and priority service</p>
+                                <p class="help-text">Maximum 1000 characters (optional notes, dietary restrictions, preferences, etc.)</p>
                             </div>
                         </div>
                     </div>
@@ -409,101 +631,217 @@
         </div>
     </main>
 
+    <!-- SCRIPTS -->
+    <script src="js/unified-mock-data.js"></script>
     <script>
+        // Auto-format phone numbers
+        function formatPhoneNumber(input) {
+            const value = input.value.replace(/\D/g, '');
+            if (value.length <= 3) {
+                input.value = value ? `(${value}` : '';
+            } else if (value.length <= 6) {
+                input.value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+            } else {
+                input.value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+            }
+        }
+
+        // Add event listeners to phone inputs
+        ['mobilePhone', 'homePhone', 'workPhone'].forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('input', function() {
+                    formatPhoneNumber(this);
+                });
+            }
+        });
+
+        // Add event listeners for duplicate check
+        ['email', 'mobilePhone'].forEach(fieldId => {
+            const input = document.getElementById(fieldId);
+            if (input) {
+                input.addEventListener('blur', checkDuplicate);
+            }
+        });
+
+        // Add event listener for country change to update ZIP placeholder
+        const countrySelect = document.getElementById('country');
+        if (countrySelect) {
+            countrySelect.addEventListener('change', updateZipPlaceholder);
+        }
+
+        // Add event listener for ZIP validation
+        const zipInput = document.getElementById('zipCode');
+        if (zipInput) {
+            zipInput.addEventListener('input', validateZipByCountry);
+        }
+
+        // Update ZIP placeholder based on country
+        function updateZipPlaceholder() {
+            const country = document.getElementById('country').value;
+            const zipInput = document.getElementById('zipCode');
+            
+            switch(country) {
+                case '1': // United States
+                    zipInput.placeholder = "12345 or 12345-6789";
+                    zipInput.pattern = "[0-9]{5}(-[0-9]{4})?";
+                    break;
+                case '2': // Canada
+                    zipInput.placeholder = "A1A 1A1";
+                    zipInput.pattern = "[A-Z][0-9][A-Z] [0-9][A-Z][0-9]";
+                    break;
+                case '3': // Mexico
+                    zipInput.placeholder = "12345";
+                    zipInput.pattern = "[0-9]{5}";
+                    break;
+                default:
+                    zipInput.placeholder = "12345 or A1A 1A1";
+                    zipInput.pattern = "";
+            }
+        }
+
+        // Validate ZIP code based on selected country
+        function validateZipByCountry() {
+            const zipInput = document.getElementById('zipCode');
+            const country = document.getElementById('country').value;
+            
+            // Remove validation message
+            zipInput.setCustomValidity('');
+            
+            if (!zipInput.value) return;
+            
+            // Validate based on country
+            const value = zipInput.value.trim();
+            let isValid = true;
+            
+            if (country === '1') { // United States
+                isValid = /^[0-9]{5}(-[0-9]{4})?$/.test(value);
+                if (!isValid) {
+                    zipInput.setCustomValidity('Please enter a valid US ZIP code (e.g., 12345 or 12345-6789)');
+                }
+            } else if (country === '2') { // Canada
+                isValid = /^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$/i.test(value);
+                if (!isValid) {
+                    zipInput.setCustomValidity('Please enter a valid Canadian postal code (e.g., A1A 1A1)');
+                }
+            } else if (country === '3') { // Mexico
+                isValid = /^[0-9]{5}$/.test(value);
+                if (!isValid) {
+                    zipInput.setCustomValidity('Please enter a valid Mexican postal code (5 digits)');
+                }
+            }
+        }
+
+        // Check for duplicate customers
+        function checkDuplicate() {
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('mobilePhone').value.trim();
+            
+            if (!email && !phone) return;
+            
+            // Check if customer exists in unifiedMockData
+            const existing = unifiedMockData.customers.find(c => 
+                (email && c.email === email) || (phone && c.mobilePhone === phone)
+            );
+            
+            const warning = document.getElementById('duplicateWarning');
+            
+            if (existing) {
+                const matchField = existing.email === email ? 'email' : 'phone';
+                warning.style.display = 'flex';
+                warning.innerHTML = `⚠️ A customer with this ${matchField} already exists: <strong>${existing.firstName} ${existing.lastName}</strong>. <a href="all-customers.html?id=${existing.id}">View customer</a>`;
+            } else {
+                warning.style.display = 'none';
+            }
+        }
+
+        // Show toast notification
+        function showToast(type, message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'flex';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, duration);
+        }
+
         // Load user info on page load
         window.addEventListener('load', function() {
             loadUserInfo();
         });
 
         function loadUserInfo() {
-            const userRole = localStorage.getItem('userRole') || 'Staff';
-            const userName = localStorage.getItem('userName') || 'Guest User';
-            document.getElementById('staff-role').textContent = userRole;
-            document.getElementById('staff-name').textContent = userName;
+            const currentStaff = JSON.parse(sessionStorage.getItem('currentStaff') || '{}');
+            if (currentStaff.name) {
+                const staffNameEl = document.getElementById('staff-name');
+                const staffRoleEl = document.getElementById('staff-role');
+                if (staffNameEl) staffNameEl.textContent = currentStaff.name;
+                if (staffRoleEl) staffRoleEl.textContent = currentStaff.role || 'Staff';
+            } else {
+                // Fallback to localStorage
+                const userRole = localStorage.getItem('userRole') || 'Staff';
+                const userName = localStorage.getItem('userName') || 'Guest User';
+                const staffRoleEl = document.getElementById('staff-role');
+                const staffNameEl = document.getElementById('staff-name');
+                if (staffRoleEl) staffRoleEl.textContent = userRole;
+                if (staffNameEl) staffNameEl.textContent = userName;
+            }
         }
 
         function handleSubmit(event) {
             event.preventDefault();
 
-            // Validate form first
-            if (!validateForm('newCustomerForm')) {
-                return;
-            }
+            const formData = new FormData(event.target);
+            
+            // Generate new customer ID
+            const newCustomerId = Math.max(...unifiedMockData.customers.map(c => c.id)) + 1;
 
-            // Show loading state
-            const submitBtn = event.target.querySelector('.btn-submit');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Creating...';
+            // Map state code to stateId
+            const stateCode = formData.get('state');
+            const stateMapping = {
+                'AL': 1, 'AK': 2, 'AZ': 3, 'AR': 4, 'CA': 5, 'CO': 6, 'CT': 7, 'DE': 8, 'FL': 10,
+                'GA': 11, 'HI': 12, 'ID': 13, 'IL': 14, 'IN': 15, 'IA': 16, 'KS': 17, 'KY': 18,
+                'LA': 19, 'ME': 20, 'MD': 21, 'MA': 22, 'MI': 23, 'MN': 24, 'MS': 25, 'MO': 26,
+                'MT': 27, 'NE': 28, 'NV': 29, 'NH': 30, 'NJ': 31, 'NM': 32, 'NY': 33, 'NC': 34,
+                'ND': 35, 'OH': 36, 'OK': 37, 'OR': 38, 'PA': 39, 'RI': 40, 'SC': 41, 'SD': 42,
+                'TN': 43, 'TX': 48, 'UT': 44, 'VT': 45, 'VA': 46, 'WA': 47, 'WV': 49, 'WI': 50, 'WY': 51
+            };
+            const stateId = stateMapping[stateCode] || 48;
 
-            // Get form data
-            const formData = {
-                custId: Math.floor(Math.random() * 999999) + 1,
-                firstName: document.getElementById('firstName').value,
-                middleInit: document.getElementById('middleInit').value,
-                lastName: document.getElementById('lastName').value,
-                companyName: document.getElementById('companyName').value,
-                custType: document.getElementById('custType').value,
-                custStatus: document.getElementById('custStatus').value,
-                addrLine1: document.getElementById('addrLine1').value,
-                addrLine2: document.getElementById('addrLine2').value,
-                state: document.getElementById('state').value,
-                zipCode: document.getElementById('zipCode').value,
-                country: document.getElementById('country').value,
-                mobilePhone: document.getElementById('mobilePhone').value,
-                workPhone: document.getElementById('workPhone').value,
-                homePhone: document.getElementById('homePhone').value,
-                email: document.getElementById('email').value,
-                comments: document.getElementById('comments').value,
-                preferredCustomer: document.getElementById('preferredCustomer').checked ? 'Y' : 'N'
+            // Create new customer object
+            const newCustomer = {
+                id: newCustomerId,
+                statusId: parseInt(formData.get('custStatus')) || 1,
+                typeId: parseInt(formData.get('custType')) || 1,
+                companyName: formData.get('companyName') || null,
+                firstName: formData.get('firstName'),
+                middleInitial: formData.get('middleInit') || null,
+                lastName: formData.get('lastName'),
+                addressLine1: formData.get('addrLine1'),
+                addressLine2: formData.get('addrLine2') || null,
+                stateId: stateId,
+                countryId: parseInt(formData.get('country')) || 1,
+                zipCode: formData.get('zipCode'),
+                mobilePhone: formData.get('mobilePhone'),
+                workPhone: formData.get('workPhone') || null,
+                homePhone: formData.get('homePhone') || null,
+                email: formData.get('email'),
+                comments: formData.get('comments') || null,
+                isPreferred: formData.get('preferredCustomer') ? 'Y' : 'N'
             };
 
-            // Validate required fields
-            if (!formData.firstName || !formData.lastName || !formData.custType || !formData.custStatus ||
-                !formData.addrLine1 || !formData.state || !formData.zipCode || !formData.country ||
-                !formData.mobilePhone || !formData.email) {
-                showError('Please fill in all required fields');
-                return;
-            }
+            // Add to unified data
+            unifiedMockData.customers.push(newCustomer);
 
-            // Validate phone format
-            const phoneRegex = /^[\d\s\-\(\)]+$/;
-            if (formData.mobilePhone && !phoneRegex.test(formData.mobilePhone)) {
-                showError('Please enter a valid phone number format');
-                return;
-            }
+            console.log('New customer created:', newCustomer);
+            console.log('Total customers:', unifiedMockData.customers.length);
 
-            // Validate email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(formData.email)) {
-                showError('Please enter a valid email address');
-                return;
-            }
+            // Show toast notification
+            showToast('success', `✓ Customer #${newCustomerId} created successfully! (${newCustomer.firstName} ${newCustomer.lastName})`, 2000);
 
-            // Get existing customers from localStorage
-            let customers = JSON.parse(localStorage.getItem('customers') || '[]');
-
-            // Check for duplicate email
-            if (customers.some(c => c.email === formData.email)) {
-                showError('A customer with this email already exists');
-                return;
-            }
-
-            // Add new customer
-            customers.push(formData);
-            localStorage.setItem('customers', JSON.stringify(customers));
-
-            // Show success toast
-            showToast(`Customer ${formData.firstName} ${formData.lastName} created successfully!`, 'success');
-
-            // Reset form
-            document.getElementById('newCustomerForm').reset();
-
-            // Restore button state
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-
-            // Redirect to customers page after 2 seconds
+            // Redirect after delay
             setTimeout(() => {
                 window.location.href = 'all-customers.html';
             }, 2000);
@@ -511,16 +849,28 @@
 
         function showSuccess(message) {
             const successDiv = document.getElementById('successMessage');
-            successDiv.textContent = '✅ ' + message;
-            successDiv.style.display = 'block';
-            document.getElementById('errorMessage').style.display = 'none';
+            if (successDiv) {
+                successDiv.textContent = '✅ ' + message;
+                successDiv.style.display = 'block';
+            }
+            const errorDiv = document.getElementById('errorMessage');
+            if (errorDiv) errorDiv.style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function showError(message) {
             const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = '❌ ' + message;
-            errorDiv.style.display = 'block';
-            document.getElementById('successMessage').style.display = 'none';
+            if (errorDiv) {
+                errorDiv.textContent = '❌ ' + message;
+                errorDiv.style.display = 'block';
+            }
+            const successDiv = document.getElementById('successMessage');
+            if (successDiv) successDiv.style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function goToCustomers() {
@@ -529,11 +879,24 @@
             }
         }
 
+        function goToDashboard() {
+            const currentStaff = JSON.parse(sessionStorage.getItem('currentStaff') || '{}');
+            const rolePages = {
+                'Manager': 'index.html',
+                'Baker': 'baker-dashboard.html',
+                'Decorator': 'decorator-dashboard.html',
+                'Sales': 'sales-dashboard.html',
+                'Accountant': 'accountant-dashboard.html'
+            };
+            window.location.href = rolePages[currentStaff.role] || 'index.html';
+        }
+
         function backToSite() {
             window.location.href = '../index.html';
         }
 
         function handleLogout() {
+            sessionStorage.clear();
             localStorage.removeItem('userRole');
             localStorage.removeItem('userName');
             window.location.href = '../staff-login.html';
